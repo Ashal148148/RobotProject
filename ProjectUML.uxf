@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>496</y>
+      <w>136</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Robot
+--
+-id: int $
+-name: string $
+--
++Robot(SOCKET,string)
++~Robot()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>200</y>
+      <w>184</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>DatabaseHandler
+--
+-mtxDB: mutex
+--
++signUp(string, string, string): ~~
++signIn(string, string, string): ~~
++requestData(int): ~~
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>624</x>
+      <y>56</y>
+      <w>232</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Helper
+--
+--
++getCode(RM): static int
++breakMessage(RM): static vector&lt;string&gt;
++zeroPadding(int): static string
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>24</y>
+      <w>144</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>Server
+--
+-sokcet: SOCKET
+-mtxRM: mutex
+-queRM: queue&lt;RM&gt;
+-robotMap: map&lt;int,Robot&gt;
+--
+-bindAndListen(): void
+-accept(): void
+-clientHandler(SOCKET)
++run(): void
++server()
++~server()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>200</y>
+      <w>224</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>RecievedMessage
+--
+-client: Client $
+-message: String $
+-socket: SOCKET $
+--
++RecievedMessage(string,SOCKET)
++RecievedMessage(string,SOCKET,User)
++~RecievedMessage()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>496</y>
+      <w>152</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>User
+--
+-id: int $
+-authority: int #
+--
++isConnected(): int
++closeConnection(): int
++User(SOCKET)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>48</x>
+      <y>32</y>
+      <w>176</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>RM short for RecievedMessage
+DH short for DatabaseHandler
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>232</x>
+      <y>32</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes># means attribute has get and set
+$ means attribute has get
+
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>200</y>
+      <w>120</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>ImageProccesor
+--
+Variables
+--
+Methoods</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>160</y>
+      <w>152</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>648</x>
+      <y>360</y>
+      <w>120</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Client
+--
+*socket: SOCKET $
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>456</y>
+      <w>72</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>456</y>
+      <w>64</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>312</y>
+      <w>24</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>160</y>
+      <w>24</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>296</x>
+      <y>160</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>190.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+</diagram>
