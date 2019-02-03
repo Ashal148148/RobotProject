@@ -1,0 +1,32 @@
+#pragma once
+
+//SERVER:
+#define PORT 1267
+#define MAX_ROOMS 50
+
+//MSG:
+#define MSG_SEPARATOR "###"
+#define BUFFER_SIZE 128
+
+//PROTOCOL:
+
+//Account:
+#define SIGN_IN 200
+#define SIGN_OUT 201
+#define SIGN_UP 203
+#define SIGN_IN_SUCCESS 1020
+#define SIGN_IN_FAIL 1021
+#define SIGN_IN_FAIL_USER_ALREADY_CONNECTED 1022
+#define SIGN_UP_SUCCESS 1040
+#define SIGN_UP_FAIL_PASS_ILLEGAL 1041
+#define SIGN_UP_FAIL_NAME_TAKEN 1042
+#define SIGN_UP_FAIL_EMAIL_INVALID 1043
+#define SIGN_UP_FAIL 1044
+
+//Program:
+#define APP_CLOSE 299
+
+//Reset Password:
+#define RESET_PASSWORD 199
+#define RESET_PASSWORD_SUCCESS 1990
+#define RESET_PASSWORD_FAIL 1991
