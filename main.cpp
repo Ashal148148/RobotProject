@@ -8,11 +8,12 @@
 int main(int argc, char *argv[])
 {
 	std::cout << "Hello World!" << std::endl;
-	WSAInitializer ini;
+	
 	try
 	{
-		Server s;
-		s.server();	
+		WSAInitializer WSAInit;
+		Server* s = new Server();
+		s->server();	
 	}
 	catch (std::exception e)
 	{

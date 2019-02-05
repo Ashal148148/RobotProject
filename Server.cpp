@@ -320,13 +320,15 @@ void Server::addRecievedMessage(RecievedMessage * msg)
 RecievedMessage * Server::buildRecievedMessage(SOCKET socket)
 {
 	std::vector<std::string> values;
+	Validator validator;
 	char buffer[BUFFER_SIZE];
 	char* pch;
 
 	int dataRead = recv(socket, buffer, BUFFER_SIZE, 0);
-
+	std::cout << dataRead << "*" << std::endl;//////******************************************************
 	if (dataRead == -1)
 	{
+		std::cout << "******" << WSAGetLastError() << std::endl;//////*****************************************************
 		return nullptr;
 	}
 
@@ -339,9 +341,23 @@ RecievedMessage * Server::buildRecievedMessage(SOCKET socket)
 		pch = strtok(NULL, MSG_SEPARATOR);
 	}
 
-	int msgCode = std::stoi(values[0]);
-	values.erase(values.begin());
-	
+	int msgCode;
+	if (values.size() > 0)
+	{
+		if (validator.isNumeric(values[0]))
+		{
+			msgCode = std::stoi(values[0]);
+			values.erase(values.begin());
+		}
+		else
+		{
+			msgCode = INVALID_CODE;
+		}
+	}
+	else
+	{
+		msgCode = INVALID_CODE;
+	}
 
 	User* user = getUserBySocket(socket);
 	if (user != nullptr)

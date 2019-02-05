@@ -28,6 +28,17 @@ bool Validator::isPasswordValid(const std::string& pass)
 	}
 }
 
+bool Validator::isNumeric(const std::string & str)
+{
+	bool numFlag = false;
+	for (int i = 0; i < str.length(); i++)
+	{
+		if (isdigit(str[i]))
+			numFlag = true;
+	}
+	return(numFlag);
+}
+
 bool Validator::isEmailValid(const std::string & email)
 {
 	int at = email.find('@');

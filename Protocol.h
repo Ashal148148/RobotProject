@@ -2,13 +2,13 @@
 
 //SERVER:
 #define PORT 1267
-#define MAX_ROOMS 50
 
 //MSG:
 #define MSG_SEPARATOR "###"
 #define BUFFER_SIZE 128
 
 //PROTOCOL:
+#define INVALID_CODE -1
 
 //Account:
 #define SIGN_IN 200
