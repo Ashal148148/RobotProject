@@ -57,6 +57,7 @@ private:
 	DataBase _db;
 	std::queue<RecievedMessage*> _queRcvMessages;
 	std::mutex _mtxRecievedMessages;
+	std::mutex _mtxHandleRecivedMessages;//might need to be changed to _mtxWriteToConsole
 	std::condition_variable _cv;
 
 };

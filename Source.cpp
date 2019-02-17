@@ -38,7 +38,7 @@ int main()
 		myH.sendData(_sock, "Hello!");
 		int bytesNum = 1024;
 		char* data = new char[bytesNum + 1];
-		int res = 0;//recv(_sock, data, bytesNum, 0);
+		int res = recv(_sock, data, bytesNum, 0);
 
 		if (res == INVALID_SOCKET)
 		{
@@ -47,13 +47,13 @@ int main()
 			throw std::exception(s.c_str());
 		}
 		data[bytesNum] = 0;
-		//std::cout << data<< std::endl;
+		std::cout << std::string(data) << std::endl;
 	}
 	catch (std::exception e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-	closesocket(_sock);
+	::closesocket(_sock);
 	system("PAUSE");
 	return 0;
 }

@@ -9,6 +9,8 @@
 
 //PROTOCOL:
 #define INVALID_CODE -1
+#define NO_CODE -2
+#define FORCED_DISCONNECT 0
 
 //Account:
 #define SIGN_IN 200

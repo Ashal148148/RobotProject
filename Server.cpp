@@ -100,6 +100,15 @@ void Server::clientHandler(SOCKET clientSocket)
 			break;
 		}
 		addRecievedMessage(msg);
+		if (msg->getMessageCode() == FORCED_DISCONNECT)
+		{
+			_mtxRecievedMessages.lock();
+			std::cout << "=========================================" << std::endl;
+			std::cout << "[IMPORTANT INFO v2] Broke from " __FUNCTION__ " (msg->getMessageCode() == FORCED_DISCONNECT) for socket: " << clientSocket << std::endl;
+			std::cout << "=========================================" << std::endl;
+			_mtxRecievedMessages.unlock();
+			break;
+		}
 		if (msg->getMessageCode() == APP_CLOSE)
 		{
 			_mtxRecievedMessages.lock();
@@ -247,8 +256,10 @@ void Server::handleRecievedMessages()
 		bool flag;
 		bool flagToBreak = false;
 
+		_mtxHandleRecivedMessages.lock();//LAST WAS HERE
 		std::cout << "=========================================" << std::endl;
 		std::cout << __FUNCTION__ ": msgCode = " << msg->getMessageCode() << ", client_socket: " << msg->getSock() << std::endl;
+		_mtxHandleRecivedMessages.unlock();
 		try
 		{
 			switch (msg->getMessageCode())
@@ -288,7 +299,16 @@ void Server::handleRecievedMessages()
 					msg->getUser()->send(std::to_string(RESET_PASSWORD_FAIL));
 				}
 				break;
+			case FORCED_DISCONNECT:
+				flagToBreak = true;
+				safeDisconnectUser(msg);
+				break;
+			case NO_CODE:
+				msg->getUser()->send(std::to_string(NO_CODE));
+				throw std::exception(std::string(std::string("Error: Message recived was not written by the protocol")).c_str());
+				break;
 			default:
+				msg->getUser()->send(std::to_string(INVALID_CODE));
 				throw std::exception(std::string(std::string("Error: code '") + std::to_string(msg->getMessageCode()) + std::string("' is undefined.")).c_str());
 				break;
 			}
@@ -325,40 +345,45 @@ RecievedMessage * Server::buildRecievedMessage(SOCKET socket)
 	char* pch;
 
 	int dataRead = recv(socket, buffer, BUFFER_SIZE, 0);
-	std::cout << dataRead << "*" << std::endl;//////******************************************************
 	if (dataRead == -1)
 	{
 		std::cout << "******" << WSAGetLastError() << std::endl;//////*****************************************************
 		return nullptr;
 	}
-
-	buffer[dataRead] = 0;
-
-	pch = strtok(buffer, MSG_SEPARATOR);
-	while (pch != NULL)
-	{
-		values.push_back(pch);
-		pch = strtok(NULL, MSG_SEPARATOR);
-	}
-
 	int msgCode;
-	if (values.size() > 0)
+
+	if (dataRead == 0)
 	{
-		if (validator.isNumeric(values[0]))
-		{
-			msgCode = std::stoi(values[0]);
-			values.erase(values.begin());
-		}
-		else
-		{
-			msgCode = INVALID_CODE;
-		}
+		msgCode = FORCED_DISCONNECT;
 	}
 	else
 	{
-		msgCode = INVALID_CODE;
-	}
+		buffer[dataRead] = 0;
 
+		pch = strtok(buffer, MSG_SEPARATOR);
+		while (pch != NULL)
+		{
+			values.push_back(pch);
+			pch = strtok(NULL, MSG_SEPARATOR);
+		}
+
+		if (values.size() > 0)
+		{
+			if (validator.isNumeric(values[0]))
+			{
+				msgCode = std::stoi(values[0]);
+				values.erase(values.begin());
+			}
+			else
+			{
+				msgCode = NO_CODE;
+			}
+		}
+		else
+		{
+			msgCode = NO_CODE;
+		}
+	}
 	User* user = getUserBySocket(socket);
 	if (user != nullptr)
 	{
