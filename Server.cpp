@@ -256,7 +256,7 @@ void Server::handleRecievedMessages()
 		bool flag;
 		bool flagToBreak = false;
 
-		_mtxHandleRecivedMessages.lock();//LAST WAS HERE
+		_mtxHandleRecivedMessages.lock();
 		std::cout << "=========================================" << std::endl;
 		std::cout << __FUNCTION__ ": msgCode = " << msg->getMessageCode() << ", client_socket: " << msg->getSock() << std::endl;
 		_mtxHandleRecivedMessages.unlock();
@@ -305,20 +305,24 @@ void Server::handleRecievedMessages()
 				break;
 			case NO_CODE:
 				msg->getUser()->send(std::to_string(NO_CODE));
-				throw std::exception(std::string(std::string("Error: Message recived was not written by the protocol")).c_str());
+				throw std::exception(std::string(std::string("Error: Message received was not written by the protocol")).c_str());
 				break;
 			default:
 				msg->getUser()->send(std::to_string(INVALID_CODE));
 				throw std::exception(std::string(std::string("Error: code '") + std::to_string(msg->getMessageCode()) + std::string("' is undefined.")).c_str());
 				break;
 			}
+			_mtxHandleRecivedMessages.lock();
 			std::cout << "=========================================" << std::endl;
+			_mtxHandleRecivedMessages.unlock();
 
 			if (flagToBreak)
 			{
+				_mtxHandleRecivedMessages.lock();
 				std::cout << "=========================================" << std::endl;
 				std::cout << "[IMPORTANT INFO v1] - Broke from the main loop in the socket: " << msg->getSock() << std::endl;
 				std::cout << "=========================================" << std::endl;
+				_mtxHandleRecivedMessages.unlock();
 				break;
 			}
 		}

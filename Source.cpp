@@ -36,7 +36,7 @@ int main()
 		}
 		Helper myH;
 		myH.sendData(_sock, "Hello!");
-		int bytesNum = 1024;
+		int bytesNum = 1024;//TODO-- NEED TO EXPECT SIZE AND NOT... BLABLA (4)
 		char* data = new char[bytesNum + 1];
 		int res = recv(_sock, data, bytesNum, 0);
 
@@ -46,8 +46,11 @@ int main()
 			s += std::to_string(_sock);
 			throw std::exception(s.c_str());
 		}
-		data[bytesNum] = 0;
-		std::cout << std::string(data) << std::endl;
+		data[bytesNum] = '0';
+		for (int i = 0; i < 20; i++)
+		{
+			std::cout  << bytesNum << "    " << i <<"    " << data[i] << std::endl;
+		}		
 	}
 	catch (std::exception e)
 	{
