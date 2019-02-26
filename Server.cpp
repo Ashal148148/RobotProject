@@ -304,11 +304,11 @@ void Server::handleRecievedMessages()
 				safeDisconnectUser(msg);
 				break;
 			case NO_CODE:
-				msg->getUser()->send(std::to_string(NO_CODE));
+				msg->getUser()->send(Helper::getPaddedNumber(NO_CODE, SERVER_RESPONSE_CODE_SIZE));
 				throw std::exception(std::string(std::string("Error: Message received was not written by the protocol")).c_str());
 				break;
 			default:
-				msg->getUser()->send(std::to_string(INVALID_CODE));
+				msg->getUser()->send(Helper::getPaddedNumber(INVALID_CODE, SERVER_RESPONSE_CODE_SIZE));
 				throw std::exception(std::string(std::string("Error: code '") + std::to_string(msg->getMessageCode()) + std::string("' is undefined.")).c_str());
 				break;
 			}

@@ -6,10 +6,11 @@
 //MSG:
 #define MSG_SEPARATOR "###"
 #define BUFFER_SIZE 128
+#define SERVER_RESPONSE_CODE_SIZE 4
 
 //PROTOCOL:
-#define INVALID_CODE -1
-#define NO_CODE -2
+#define INVALID_CODE 0001
+#define NO_CODE 0002
 #define FORCED_DISCONNECT 0
 
 //Account:

@@ -29,28 +29,29 @@ int main()
 		printf("\nInvalid address/ Address not supported \n");
 	}
 	try
-	{		
+	{
 		if (connect(_sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
 		{
 			printf("\nConnection Failed \n");
 		}
 		Helper myH;
-		myH.sendData(_sock, "Hello!");
-		int bytesNum = 1024;//TODO-- NEED TO EXPECT SIZE AND NOT... BLABLA (4)
-		char* data = new char[bytesNum + 1];
-		int res = recv(_sock, data, bytesNum, 0);
+		for (int j = 0; j < 10; j++)
+		{
+			myH.sendData(_sock, "Hello!");
+			int bytesNum = 1024;//TODO-- NEED TO EXPECT SIZE AND NOT... BLABLA (4)
+			char* data = new char[bytesNum + 1];
+			int res = recv(_sock, data, bytesNum, 0);
 
-		if (res == INVALID_SOCKET)
-		{
-			std::string s = "Error while recieving from socket: ";
-			s += std::to_string(_sock);
-			throw std::exception(s.c_str());
+			if (res == INVALID_SOCKET)
+			{
+				std::string s = "Error while recieving from socket: ";
+				s += std::to_string(_sock);
+				throw std::exception(s.c_str());
+			}
+			data[res] = 0;
+			std::cout << data << std::endl;
+			std::this_thread::sleep_for(std::chrono::seconds(3));
 		}
-		data[bytesNum] = '0';
-		for (int i = 0; i < 20; i++)
-		{
-			std::cout  << bytesNum << "    " << i <<"    " << data[i] << std::endl;
-		}		
 	}
 	catch (std::exception e)
 	{
