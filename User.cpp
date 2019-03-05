@@ -1,33 +1,33 @@
 #include "User.h"
 
-User::User(SOCKET socket)
+User::User(SOCKET socket) : Client(socket)
 {
-	_sock = socket;
-	_username = "";
+	this->_authority = GUEST;
 }
 
-User::User(std::string username, SOCKET socket)
+User::User(std::string id, SOCKET socket) : Client(socket,id)
 {
-	_username = username;
-	_sock = socket;
+	this->_authority = GUEST;
+}
+
+User::User(std::string id, SOCKET socket, int authority) : Client(socket,id)
+{
+	this->_authority = authority;
+}
+
+int User::getAuthority()
+{
+	return _authority;
+}
+
+void User::setAuthority(int selfAuthority, int setAuthority)//TODO
+{
+
 }
 
 User::~User()
 {
 }
 
-void User::send(std::string msg)
-{
-	Helper::sendData(_sock, msg);
-}
 
-std::string User::getUsername()
-{
-	return _username;
-}
-
-SOCKET User::getSocket()
-{
-	return _sock;
-}
 

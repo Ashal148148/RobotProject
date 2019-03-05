@@ -147,7 +147,7 @@ User * Server::handleUserSignin(RecievedMessage* msg)
 			}
 			else
 			{
-				Helper::sendData(msg->getSock(), std::to_string(SIGN_IN_FAIL_USER_ALREADY_CONNECTED));
+				Helper::sendData(msg->getSock(), std::to_string(SIGN_IN_FAIL));
 				return nullptr;
 			}
 		}
