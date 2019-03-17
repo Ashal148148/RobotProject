@@ -2,7 +2,7 @@
 
 
 
-Robot::Robot()
+Robot::Robot() : Client(SOCKET )//LAST HERE
 {
 }
 

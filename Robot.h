@@ -5,8 +5,8 @@
 class Robot : Client
 {
 public:
-	static Robot& getInstance();
-	void send(std::string message);
+	static Robot* getInstance();
+	virtual void send(std::string message) override;
 
 	~Robot();
 
@@ -15,10 +15,9 @@ public:
 	void operator=(Robot const&) = delete;
 
 private:
-	Robot() : Client() {};
+	Robot();
 	std::string _id;
 
 
 
 };
-
