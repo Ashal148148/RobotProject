@@ -14,7 +14,7 @@ public:
 	~Client();
 	SOCKET getSocket();
 	std::string getId();
-	void send(std::string message);
+	virtual void send(std::string message);
 
 protected:
 	SOCKET _sock;

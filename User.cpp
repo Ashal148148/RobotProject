@@ -22,7 +22,7 @@ int User::getAuthority()
 
 void User::setAuthority(int selfAuthority, int setAuthority)//TODO
 {
-
+	this->_authority = setAuthority;
 }
 
 User::~User()

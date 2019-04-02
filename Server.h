@@ -14,6 +14,9 @@
 #include <condition_variable>
 
 #include "Helper.h"
+#include "Client.h"
+#include "Robot.h"
+#include "Component.h"
 #include "User.h"
 #include "RecievedMessage.h"
 #include "Database.h"

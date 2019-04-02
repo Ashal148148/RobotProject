@@ -4,30 +4,31 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>568</x>
-      <y>504</y>
-      <w>136</w>
-      <h>120</h>
+      <x>552</x>
+      <y>496</y>
+      <w>160</w>
+      <h>128</h>
     </coordinates>
-    <panel_attributes>Robot
+    <panel_attributes>GreenHouse
 --
 -id: int $
 -name: string $
 -ip: string #
 -components[]: components
+-robot: Robot
 --
--Robot(SOCKET,string)
-+~Robot()
-+getInstance(): Robot</panel_attributes>
+-GreenHouse(SOCKET,string)
++~GreenHouse()
++getInstance(): GreenHouse</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>384</x>
-      <y>208</y>
+      <x>352</x>
+      <y>216</y>
       <w>184</w>
-      <h>128</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>DatabaseHandler
 --
@@ -42,8 +43,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>624</x>
-      <y>64</y>
+      <x>704</x>
+      <y>32</y>
       <w>232</w>
       <h>96</h>
     </coordinates>
@@ -59,21 +60,23 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>32</y>
-      <w>144</w>
-      <h>144</h>
+      <x>432</x>
+      <y>0</y>
+      <w>200</w>
+      <h>184</h>
     </coordinates>
     <panel_attributes>Server
 --
 -sokcet: SOCKET
 -mtxRM: mutex
 -queRM: queue&lt;RM&gt;
--robotMap: map&lt;int,Robot&gt;
+-greenHouse: greenHouse*
 --
 -bindAndListen(): void
 -accept(): void
 -clientHandler(SOCKET)
+-userHandler(SOCKET)
+-greenhouseHandler(SOCKET)
 +run(): void
 +server()
 +~server()
@@ -83,8 +86,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>584</x>
-      <y>208</y>
+      <x>568</x>
+      <y>216</y>
       <w>224</w>
       <h>120</h>
     </coordinates>
@@ -102,26 +105,28 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>504</y>
+      <x>736</x>
+      <y>496</y>
       <w>152</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>User
 --
 -id: int $
--authority: int #
+-authority: int $
 --
 +isConnected(): int
 +closeConnection(): int
++systemSetAuthority()
++setAuthority(int,int)
 +User(SOCKET)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>48</x>
-      <y>40</y>
+      <x>32</x>
+      <y>32</y>
       <w>176</w>
       <h>56</h>
     </coordinates>
@@ -134,8 +139,8 @@ bg=green</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>232</x>
-      <y>40</y>
+      <x>216</x>
+      <y>32</y>
       <w>176</w>
       <h>56</h>
     </coordinates>
@@ -146,36 +151,21 @@ bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>240</x>
-      <y>208</y>
-      <w>120</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>ImageProccesor
---
-Variables
---
-Methoods</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>168</y>
-      <w>152</w>
+      <x>552</x>
+      <y>176</y>
+      <w>144</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;160.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>368</y>
+      <x>632</x>
+      <y>360</y>
       <w>120</w>
       <h>104</h>
     </coordinates>
@@ -189,19 +179,19 @@ Methoods</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>736</x>
-      <y>464</y>
-      <w>72</w>
+      <x>720</x>
+      <y>456</y>
+      <w>104</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;70.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;110.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>632</x>
-      <y>464</y>
+      <x>616</x>
+      <y>456</y>
       <w>64</w>
       <h>56</h>
     </coordinates>
@@ -211,58 +201,36 @@ Methoods</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>704</x>
-      <y>320</y>
+      <x>688</x>
+      <y>328</y>
       <w>24</w>
-      <h>64</h>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>168</y>
-      <w>24</w>
+      <x>448</x>
+      <y>176</y>
+      <w>48</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>296</x>
-      <y>168</y>
-      <w>168</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>190.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>40.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1024</x>
-      <y>0</y>
-      <w>80</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>SimpleClass</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>304</x>
-      <y>512</y>
+      <x>288</x>
+      <y>504</y>
       <w>192</w>
-      <h>104</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>/component/
 --
-#port: int
+-port: int #
 --
 </panel_attributes>
     <additional_attributes/>
@@ -270,12 +238,51 @@ Methoods</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>488</x>
-      <y>552</y>
+      <x>472</x>
+      <y>544</y>
       <w>96</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>100.0;10.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>624</y>
+      <w>192</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Robot
+--
+-port: int #
+-commandQueue: queue
+--
++proccesQueue()
++addToQueue()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>472</x>
+      <y>568</y>
+      <w>96</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>56</y>
+      <w>312</w>
+      <h>456</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;100.0;10.0;400.0;370.0;550.0</additional_attributes>
   </element>
 </diagram>

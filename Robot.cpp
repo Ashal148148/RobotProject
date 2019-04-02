@@ -2,7 +2,7 @@
 
 
 
-Robot::Robot() : Client(SOCKET )//LAST HERE
+Robot::Robot() : Client(1)//trash value that will be over written
 {
 }
 

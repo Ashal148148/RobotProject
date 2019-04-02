@@ -292,11 +292,11 @@ void Server::handleRecievedMessages()
 				if (flag)
 				{
 					_db.resetPassword("123456", msg->getValues()[0]);
-					msg->getUser()->send(std::to_string(RESET_PASSWORD_SUCCESS));
+					msg->getClient()->send(std::to_string(RESET_PASSWORD_SUCCESS));
 				}
 				else
 				{
-					msg->getUser()->send(std::to_string(RESET_PASSWORD_FAIL));
+					msg->getClient()->send(std::to_string(RESET_PASSWORD_FAIL));
 				}
 				break;
 			case FORCED_DISCONNECT:
@@ -304,11 +304,11 @@ void Server::handleRecievedMessages()
 				safeDisconnectUser(msg);
 				break;
 			case NO_CODE:
-				msg->getUser()->send(Helper::getPaddedNumber(NO_CODE, SERVER_RESPONSE_CODE_SIZE));
+				msg->getClient()->send(Helper::getPaddedNumber(NO_CODE, SERVER_RESPONSE_CODE_SIZE));
 				throw std::exception(std::string(std::string("Error: Message received was not written by the protocol")).c_str());
 				break;
 			default:
-				msg->getUser()->send(Helper::getPaddedNumber(INVALID_CODE, SERVER_RESPONSE_CODE_SIZE));
+				msg->getClient()->send(Helper::getPaddedNumber(INVALID_CODE, SERVER_RESPONSE_CODE_SIZE));
 				throw std::exception(std::string(std::string("Error: code '") + std::to_string(msg->getMessageCode()) + std::string("' is undefined.")).c_str());
 				break;
 			}
