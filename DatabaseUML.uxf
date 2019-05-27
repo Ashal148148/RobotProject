@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>100</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Users
+--
+PK id: INTEGER
+email: TEXT
+password: TEXT
+authority: INTEGER</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>100</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sensor1
+--
+PK entry_num: INTEGER
+value: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>220</y>
+      <w>210</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Camera
+--
+PK picture_id: INTEGER
+picure: BLOB
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>140</x>
+      <y>330</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Pollination
+--
+PK entry_num: INTEGER
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>210</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sensor2
+--
+PK entry_num: INTEGER
+value: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>320</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sensor3
+--
+PK entry_num: INTEGER
+value: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>100</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sensor4
+--
+PK entry_num: INTEGER
+value: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>320</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sensor6
+--
+PK entry_num: INTEGER
+value: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>210</y>
+      <w>210</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Sensor5
+--
+PK entry_num: INTEGER
+value: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>430</y>
+      <w>210</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Sensor7
+--
+PK entry_num: INTEGER
+value_t: TEXT
+value_h: TEXT
+date: TEXT
+time: TEXT</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
