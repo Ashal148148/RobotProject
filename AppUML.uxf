@@ -37,7 +37,19 @@ functions</panel_attributes>
     </coordinates>
     <panel_attributes>MainActivity 
 --
-functions</panel_attributes>
+-intention: boolean
+--
++onCreate(...)
++onClickSignIn(...)
++onClickSignUp(...)
++onClickConfirm(...)
++onClickGuest(...)
+-goToMenu()
+-signIn(string,string,boolean)
+-signIn(string,string,string)
+-isEmailValid(string): boolean
+-isPasswordValid(string): boolean
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
