@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>13</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>140</x>
-      <y>100</y>
-      <w>210</w>
-      <h>110</h>
+      <x>65</x>
+      <y>13</y>
+      <w>273</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>Users
 --
@@ -20,10 +20,10 @@ authority: INTEGER</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>100</y>
-      <w>210</w>
-      <h>90</h>
+      <x>377</x>
+      <y>13</y>
+      <w>273</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Sensor1
 --
@@ -36,10 +36,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>140</x>
-      <y>220</y>
-      <w>210</w>
-      <h>100</h>
+      <x>65</x>
+      <y>169</y>
+      <w>273</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>Camera
 --
@@ -52,10 +52,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>140</x>
-      <y>330</y>
-      <w>210</w>
-      <h>80</h>
+      <x>65</x>
+      <y>312</y>
+      <w>273</w>
+      <h>104</h>
     </coordinates>
     <panel_attributes>Pollination
 --
@@ -67,10 +67,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>210</y>
-      <w>210</w>
-      <h>90</h>
+      <x>377</x>
+      <y>156</y>
+      <w>273</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Sensor2
 --
@@ -83,10 +83,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>320</y>
-      <w>210</w>
-      <h>90</h>
+      <x>377</x>
+      <y>299</y>
+      <w>273</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Sensor3
 --
@@ -99,10 +99,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>100</y>
-      <w>210</w>
-      <h>90</h>
+      <x>676</x>
+      <y>13</y>
+      <w>273</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Sensor4
 --
@@ -115,10 +115,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>320</y>
-      <w>210</w>
-      <h>90</h>
+      <x>676</x>
+      <y>299</y>
+      <w>273</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Sensor6
 --
@@ -131,10 +131,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>610</x>
-      <y>210</y>
-      <w>210</w>
-      <h>90</h>
+      <x>676</x>
+      <y>156</y>
+      <w>273</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>Sensor5
 --
@@ -147,10 +147,10 @@ time: TEXT</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>430</y>
-      <w>210</w>
-      <h>110</h>
+      <x>377</x>
+      <y>442</y>
+      <w>273</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>Sensor7
 --
