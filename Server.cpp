@@ -74,7 +74,7 @@ void Server::accept()
 
 void Server::clientHandler(SOCKET clientSocket)
 {
-	while(true)
+	while (true)
 	{
 		RecievedMessage* msg = buildRecievedMessage(clientSocket);
 		if (msg == nullptr)
@@ -88,7 +88,9 @@ void Server::clientHandler(SOCKET clientSocket)
 			if (user != nullptr)
 			{
 				_connectedUsers.erase(user->getSocket());
-				std::cout << user->getUsername() << " disconnected." << std::endl;
+				_mtxRecievedMessages.lock();
+				std::cout << user->getId() << " disconnected." << std::endl;
+				_mtxRecievedMessages.unlock();
 			}
 			::closesocket(clientSocket);
 
@@ -138,12 +140,12 @@ User * Server::handleUserSignin(RecievedMessage* msg)
 		{
 			throw std::exception("invalid arguments amount");
 		}
-		if (_db.isUserAndPassMatch(values[USERNAME], values[PASSWORD]))
+		if (_db.isUserAndPassMatch(values[EMAIL], values[PASSWORD]))
 		{
-			if (getUserByName(values[USERNAME]) == nullptr)
+			if (getUserByEmail(values[EMAIL]) == nullptr)
 			{
 				Helper::sendData(msg->getSock(), std::to_string(SIGN_IN_SUCCESS));
-				return new User(values[USERNAME], msg->getSock());
+				return new User(values[EMAIL], msg->getSock());
 			}
 			else
 			{
@@ -167,27 +169,27 @@ bool Server::handleUserSignup(RecievedMessage* msg)
 	try
 	{
 		std::vector<std::string>& values = msg->getValues();
-		
-		if (values.size() != 3)
+
+		if (values.size() != 2)
 		{
 			throw std::exception("invalid arguments amount");
 		}
-		if (Validator::isPasswordValid(values[PASSWORD]) && Validator::isEmailValid(values[EMAIL]))
+		if (Validator::isPasswordValid(values[PASSWORD]))
 		{
 			if (Validator::isEmailValid(values[EMAIL]))
 			{
-				if (getUserByName(values[USERNAME]) == nullptr)
+				if (getUserByEmail(values[EMAIL]) == nullptr)
 				{
 					try
 					{
-						if (_db.addNewUser(values[EMAIL], values[PASSWORD]))
+						if (_db.addNewUser(values[EMAIL], values[PASSWORD],USER_AUTH))
 						{
 							Helper::sendData(msg->getSock(), std::to_string(SIGN_UP_SUCCESS));
 							return true;
 						}
 						else
 						{
-							Helper::sendData(msg->getSock(), std::to_string(SIGN_UP_FAIL));
+							Helper::sendData(msg->getSock(), std::to_string(SIGN_UP_FAIL_EMAIL_TAKEN));
 							std::cout << values[EMAIL] << " is already exists in the database." << std::endl;
 						}
 					}
@@ -205,8 +207,8 @@ bool Server::handleUserSignup(RecievedMessage* msg)
 			}
 			else
 			{
-			    Helper::sendData(msg->getSock(), std::to_string(SIGN_UP_FAIL_EMAIL_INVALID));
-				std::cout << values[USERNAME] << " is invalid." << std::endl;
+				Helper::sendData(msg->getSock(), std::to_string(SIGN_UP_FAIL_EMAIL_INVALID));
+				std::cout << values[EMAIL] << " is invalid." << std::endl;
 			}
 		}
 		else
@@ -230,10 +232,10 @@ bool Server::handleUserSignup(RecievedMessage* msg)
 void Server::handleUserSignout(RecievedMessage* msg)
 {
 	User* user = getUserBySocket(msg->getSock());
-	if(user != nullptr)
+	if (user != nullptr)
 	{
 		_connectedUsers.erase(user->getSocket());
-		std::cout << user->getUsername() << " disconnected." << std::endl;
+		std::cout << user->getId() << " disconnected." << std::endl;
 	}
 }
 
@@ -269,7 +271,7 @@ void Server::handleRecievedMessages()
 				if (user != nullptr)
 				{
 					_connectedUsers[user->getSocket()] = user;
-					std::cout << "Adding new user to connected users list: socket = " << user->getSocket() << ", username = " << user->getUsername() << std::endl;
+					std::cout << "Adding new user to connected users list: socket = " << user->getSocket() << ", mail = " << user->getEmail() << std::endl;
 				}
 				break;
 			case SIGN_OUT:
@@ -281,7 +283,7 @@ void Server::handleRecievedMessages()
 					flag = handleUserSignup(msg);
 					std::cout << "handleUserSignup's flag: " << flag << std::endl;
 				}
-				catch(...) {}
+				catch (...) {}
 				break;
 			case APP_CLOSE:
 				safeDisconnectUser(msg);
@@ -292,11 +294,11 @@ void Server::handleRecievedMessages()
 				if (flag)
 				{
 					_db.resetPassword("123456", msg->getValues()[0]);
-					msg->getClient()->send(std::to_string(RESET_PASSWORD_SUCCESS));
+					msg->getUser()->send(std::to_string(RESET_PASSWORD_SUCCESS));
 				}
 				else
 				{
-					msg->getClient()->send(std::to_string(RESET_PASSWORD_FAIL));
+					msg->getUser()->send(std::to_string(RESET_PASSWORD_FAIL));
 				}
 				break;
 			case FORCED_DISCONNECT:
@@ -304,11 +306,11 @@ void Server::handleRecievedMessages()
 				safeDisconnectUser(msg);
 				break;
 			case NO_CODE:
-				msg->getClient()->send(Helper::getPaddedNumber(NO_CODE, SERVER_RESPONSE_CODE_SIZE));
+				msg->getUser()->send(Helper::getPaddedNumber(NO_CODE, SERVER_RESPONSE_CODE_SIZE));
 				throw std::exception(std::string(std::string("Error: Message received was not written by the protocol")).c_str());
 				break;
 			default:
-				msg->getClient()->send(Helper::getPaddedNumber(INVALID_CODE, SERVER_RESPONSE_CODE_SIZE));
+				msg->getUser()->send(Helper::getPaddedNumber(INVALID_CODE, SERVER_RESPONSE_CODE_SIZE));
 				throw std::exception(std::string(std::string("Error: code '") + std::to_string(msg->getMessageCode()) + std::string("' is undefined.")).c_str());
 				break;
 			}
@@ -396,11 +398,11 @@ RecievedMessage * Server::buildRecievedMessage(SOCKET socket)
 	return new RecievedMessage(socket, msgCode, new User(socket), values);
 }
 
-User * Server::getUserByName(std::string username)
+User * Server::getUserByEmail(std::string email)
 {
 	for (std::map<SOCKET, User*>::iterator it = _connectedUsers.begin(); it != _connectedUsers.end(); ++it)
 	{
-		if (username == it->second->getUsername())
+		if (email == it->second->getEmail())
 		{
 			return it->second;
 		}
@@ -417,4 +419,3 @@ User * Server::getUserBySocket(SOCKET socket)
 	}
 	return nullptr;
 }
-

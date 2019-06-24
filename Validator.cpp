@@ -2,16 +2,23 @@
 
 bool Validator::isPasswordValid(const std::string& pass)
 {
+	char allowedSigns[] = { '$', '!', '*', '?', '+', '_', '=', '.', '\\', '/', '-' };
 	if (pass.length() >= MUST_LEN)
 	{
-		bool AZFlag = false;
+		bool signFlag = false;
 		bool azFlag = false;
 		bool numFlag = false;
 
 		for (int i = 0; i < pass.length(); i++)
 		{
-			if (isupper(pass[i]))
-				AZFlag = true;
+			for (int j = 0; j < ALLOWED_SIGN_AMOUNT; j++)
+			{
+				if (pass[i] == allowedSigns[j])
+				{
+					signFlag = true;
+					break;
+				}
+			}		
 
 			if (islower(pass[i]))
 				azFlag = true;
@@ -20,7 +27,7 @@ bool Validator::isPasswordValid(const std::string& pass)
 				numFlag = true;
 		}
 
-		return(AZFlag && azFlag && numFlag);
+		return(signFlag && azFlag && numFlag);
 	}
 	else
 	{

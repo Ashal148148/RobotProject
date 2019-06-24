@@ -1,7 +1,6 @@
 #include "Component.h"
 
 
-
 Component::Component() : Component(-1) {}
 
 Component::Component(int port)

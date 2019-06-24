@@ -1,4 +1,11 @@
 #pragma once
+#include <iostream>
+#include <WinSock2.h>
+#include <Windows.h>
+
+#include "Helper.h"
+#include "Protocol.h"
+
 class Component
 {
 public:
@@ -11,4 +18,3 @@ public:
 private:
 	int _port;
 };
-

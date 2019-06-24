@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <WinSock2.h>
@@ -22,14 +23,18 @@
 #include "Database.h"
 #include "Protocol.h"
 #include "Validator.h"
+#include "Schedule.h"
+#include "curl/curl.h"
 
 //MUST ADD "_CRT_SECURE_NO_WARNINGS" TO THE PROJECT'S "Preprocessor Definitions"!
-#define USERNAME 0
+
+#define EMAIL 0
 #define PASSWORD 1
-#define EMAIL 2
+
 
 class RecievedMessage;
 class User;
+class Client;
 
 class Server
 {
@@ -52,15 +57,30 @@ private:
 	void addRecievedMessage(RecievedMessage* msg);
 	RecievedMessage* buildRecievedMessage(SOCKET socket);
 
-	User* getUserByName(std::string username);
+	void sensorsHandler();
+	void resfreshSensors();
+	void resreshSensor(int sensor);
+
+	
+	void wateringHandler();
+
+	void robotHandler();
+
+	User* getUserByEmail(std::string email);
 	User* getUserBySocket(SOCKET socket);
 
 	SOCKET _socket;
 	std::map<SOCKET, User*> _connectedUsers;
 	DataBase _db;
+	Schedule _schedule;
 	std::queue<RecievedMessage*> _queRcvMessages;
-	std::mutex _mtxRecievedMessages;
-	std::mutex _mtxHandleRecivedMessages;//might need to be changed to _mtxWriteToConsole
-	std::condition_variable _cv;
-
+	std::mutex _mtxRecievedMessages; //hundles users and writing to the console/log in the listen thread
+	std::mutex _mtxHandleRecivedMessages; //hundles users and writing to the console/log inside individual threads
+	std::mutex _mtxSensors;
+	std::mutex _mtxSchedule;
+	std::mutex _mtxWatering;
+	std::condition_variable _cv;//writing to console/log condition variable
+	std::condition_variable _cvSensors;
+	std::condition_variable _cvSchedule;
+	std::condition_variable _cvWatering;
 };
